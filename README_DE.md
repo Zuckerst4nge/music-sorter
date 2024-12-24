@@ -1,7 +1,3 @@
-Hier ist die kombinierte README-Datei, die sowohl die Übersicht als auch eine detaillierte Anleitung zur Verwendung des Music Sorters enthält:
-
----
-
 # Music Sorter
 
 ## Übersicht

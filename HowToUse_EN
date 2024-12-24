@@ -1,0 +1,94 @@
+Here is your translated "How to Use Music Sorter" guide in English:
+
+---
+
+# How To Use Music Sorter
+
+This guide will help you use the Music Sorter to organize your music library.
+
+---
+
+### 1. Create or Select a Folder
+First, you need to select the folder where you want to organize your music files. You can either choose an existing folder or create a new one.
+
+### 2. In the Terminal, use `cd` to navigate to the folder or drag & drop it
+Navigate to your folder in the terminal by using the `cd` (change directory) command. Alternatively, you can simply drag and drop the folder into the terminal to automatically input the path.
+
+```bash
+cd /path/to/folder
+```
+
+### 3. Run the `create_genre_folders` script in the folder
+Now that you are in the correct folder, run the `create_genre_folders.sh` script to create all the necessary genre folders.
+
+```bash
+./create_genre_folders.sh
+```
+
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/terminal_setup.png?raw=true" alt="Terminal Setup"> </p> 
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders_created.png?raw=true" alt="Folders"> </p>
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders.png?raw=true" alt="Folder Creation"> </p>
+
+**Note:** Do not close the terminal after running the script. The terminal must remain open for the next steps.
+
+### 4. DO NOT close the terminal
+If you close the terminal, you will need to use the `cd` command again to select the folder to continue. For example:
+
+```bash
+cd /path/to/folder
+```
+
+### 5. Add the music files to be sorted into the `XtoScan` folder
+Now, add all the music files you want to sort into the `XtoScan` folder. This folder will be used by the script to scan and sort the music files.
+
+### 6. Run the `sort_music.sh` script in the folder
+Run the `sort_music.sh` script to move the songs based on their genre tags into the appropriate folders.
+
+```bash
+./sort_music.sh
+```
+
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/sorted.png?raw=true" alt="Sort Tracks"> </p> 
+
+### 7. Done
+After the script has been executed, all songs should be in the correct genre folder. If everything worked correctly, the process is complete.
+
+---
+
+### **Troubleshooting:**
+
+#### If tracks end up in the `Uncategorized` folder:
+If music files end up in the `Uncategorized` folder, it means that the genre of the track could not be detected. In this case, you will need to modify the `sort_music.sh` script to correctly assign the genre.
+
+1. Open the `sort_music.sh` script in a text editor.
+2. Find the section where genres are assigned and adjust the script. For example:
+
+   Change:
+   ```bash
+   "Indie Dance"|"Alternative Dance"|"Dance")
+       echo "Dance"
+       ;;
+   ```
+
+   To:
+   ```bash
+   "Indie Dance"|"Alternative Dance"|"Dance"|"Dance & House")
+       echo "Dance"
+       ;;
+   ```
+
+3. Save the script and run it again:
+
+   ```bash
+   ./sort_music.sh
+   ```
+
+Now, previously uncategorized files should be sorted correctly.
+
+---
+
+### Have fun organizing your music! 🎵
+
+---
+
+This translation should help English-speaking users follow the same steps to use the Music Sorter. Let me know if you need further adjustments!

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Basispfad für die Ordner -> kein extra Ordner
+# Base path for the folders -> no extra folder
 base_path="./"
 
-# Ordnererstellung basierend auf den Genres
+# Folder creation based on the genres
 create_genre_folders() {
-    # Liste der Genres
+    # List of genres
     genres=(
         "Acapella"
         "Ambient"
@@ -30,11 +30,11 @@ create_genre_folders() {
         # Also check the sort_music.sh file to adjust it to the newly added folders...
     )
 
-    # Schleife, um alle Ordner zu erstellen
+    # Loop to create all folders
     for genre in "${genres[@]}"; do
         target_folder="$base_path/$genre"
         
-        # Überprüfen, ob der Ordner bereits existiert, und erstellen, falls nicht
+        # Check if the folder already exists, and create it if not
         if [ ! -d "$target_folder" ]; then
             mkdir -p "$target_folder"
             echo "Folder created: $target_folder"
@@ -44,7 +44,7 @@ create_genre_folders() {
     done
 }
 
-# Aufruf der Funktion zur Ordnererstellung
+# Call the folder creation function
 create_genre_folders
 
 echo "All folders have been checked and created (if necessary)."

@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Basispfad (aktueller Ordner)
+# Base path (current folder)
 base_path="./"
-music_folder="$base_path"  # Zielordner für sortierte Musik
-to_scan_folder="${base_path}XtoScan"  # Ordner mit neuen Tracks zum Scannen
-uncategorized_folder="${music_folder}/Uncategorized"  # Ordner für nicht kategorisierte Tracks
+music_folder="$base_path"  # Target folder for sorted music
+to_scan_folder="${base_path}XtoScan"  # Folder with new tracks to scan
+uncategorized_folder="${music_folder}/Uncategorized"  # Folder for uncategorized tracks
 
-# Funktion: Ordner basierend auf Genre zuweisen
+# Function: Assign folder based on genre
 assign_genre_folder() {
     genre="$1"
     case "$genre" in
-        "Techno"|"Melodic Techno"|"Minimal / Deep Tech"|"Progressive Techno"|"Melodic House & Techno"|"Techno / Minimal"|"Techno (Raw / Deep / Hypnotic)") #Genre
-            echo "Techno" #Folder
+        "Techno"|"Melodic Techno"|"Minimal / Deep Tech"|"Progressive Techno"|"Melodic House & Techno"|"Techno / Minimal"|"Techno (Raw / Deep / Hypnotic)")
+            echo "Techno"
             ;;
         "Tech House")
             echo "Tech_House"
@@ -67,7 +67,7 @@ assign_genre_folder() {
     esac
 }
 
-# Funktion: Genre aus Datei auslesen
+# Function: Read genre from file
 get_genre() {
     file="$1"
     genre=$(id3v2 -l "$file" 2>/dev/null | grep '^TCON' | sed 's/^TCON.*: //' | sed 's/ (.*)//')
@@ -79,28 +79,28 @@ get_genre() {
     echo "$genre"
 }
 
-# Dateien aus XtoScan und Uncategorized durchgehen
+# Process files from XtoScan and Uncategorized folders
 find "$to_scan_folder" "$uncategorized_folder" -type f \( -iname "*.mp3" -o -iname "*.m4a" -o -iname "*.wav" \) -print0 | while IFS= read -r -d '' file; do
-    # Genre auslesen
+    # Read genre
     genre=$(get_genre "$file")
 
-    # Wenn Genre nicht ermittelt werden konnte
+    # If genre could not be determined
     if [ -z "$genre" ]; then
         echo "Genre could not be read: $file"
         genre="Uncategorized"
     fi
 
-    # Ordner basierend auf Genre auswählen
+    # Select folder based on genre
     folder=$(assign_genre_folder "$genre")
     target_folder="$music_folder/$folder"
 
-    # Zielordner erstellen, falls er noch nicht existiert
+    # Create target folder if it doesn't exist
     mkdir -p "$target_folder"
 
-    # Datei verschieben
+    # Move file
     mv "$file" "$target_folder/"
     echo "Moved: $file -> $target_folder"
 done
 
-# Abschlussmeldung
+# Completion message
 echo "Done! Tracks have been sorted."

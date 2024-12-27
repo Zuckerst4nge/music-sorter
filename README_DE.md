@@ -1,12 +1,12 @@
 # Music Sorter
 
 ## Übersicht
-Music Sorter ist eine leistungsstarke Sammlung von Bash-Skripten, die die Organisation deiner Musikbibliothek automatisieren. Es erstellt genrebasierte Ordner und sortiert Musikdateien mithilfe von Metadaten wie Genre-Tags in die entsprechenden Verzeichnisse.
+Music Sorter ist eine leistungsstarke Sammlung von Skripten, die dazu entwickelt wurden, die Organisation deiner Musikbibliothek zu automatisieren. Es erstellt genrebasierte Ordner und sortiert Musikdateien anhand von Metadaten wie Genre-Tags in die entsprechenden Verzeichnisse.
 
-Das Projekt umfasst zwei Hauptskripte:
+Das Projekt enthält zwei Hauptskripte:
 
-1. **create_genre_folders.sh**: Stellt sicher, dass die benötigten Genre-Ordner vorhanden sind.
-2. **sort_music.sh**: Scannt neue Musikdateien, bestimmt deren Genres und verschiebt sie in die passenden Ordner.
+1. **create_genre_folders**: Stellt sicher, dass die erforderlichen Genre-Ordner vorhanden sind.
+2. **sort_music**: Scannt neue Musikdateien, bestimmt deren Genres und verschiebt sie in die entsprechenden Ordner.
 
 ---
 
@@ -14,59 +14,64 @@ Das Projekt umfasst zwei Hauptskripte:
 
 ### Ordnerverwaltung
 - Erstellt automatisch Ordner für vordefinierte Genres.
-- Stellt sicher, dass alle benötigten Verzeichnisse vorhanden sind, ohne doppelte zu erstellen.
+- Stellt sicher, dass alle benötigten Verzeichnisse existieren, ohne Duplikate zu erzeugen.
 
 ### Musiksortierung
-- Liest Metadaten aus Musikdateien (mit `id3v2` oder `ffmpeg`), um Genres zu identifizieren.
+- Liest Metadaten von Musikdateien (mit `id3v2` oder `ffmpeg`), um Genres zu identifizieren.
 - Sortiert Dateien in genre-spezifische Ordner.
-- Handhabt unbekannte Genres, indem diese in einem `Uncategorized`-Ordner abgelegt werden.
-- Verarbeitet neue Dateien aus einem definierten `XtoScan`-Ordner und überprüft Dateien im `Uncategorized`-Ordner erneut.
+- Behandelt unbekannte Genres, indem diese in einen `Uncategorized`-Ordner verschoben werden.
+- Verarbeitet neue Dateien aus einem definierten `XtoScan`-Ordner und überprüft Dateien im `Uncategorized`-Ordner.
 
 ---
 
 ## Voraussetzungen
 
 ### Erforderliche Tools
-- **Bash-Shell** (Standard unter Linux und macOS)
+- **Bash Shell** (Standard auf Linux und macOS)
+- **PowerShell** (Standard auf Windows)
 - **id3v2** (zum Lesen von ID3-Tags aus MP3-Dateien)
 - **ffmpeg** (zum Extrahieren von Metadaten)
 
 ### Installation der Abhängigkeiten
-Auf Debian-basierten Systemen (z. B. Ubuntu):
+Für Debian-basierte Systeme (z. B. Ubuntu):
 ```bash
 sudo apt update
 sudo apt install id3v2 ffmpeg
 ```
-Auf macOS (mit Homebrew):
+Für macOS (mit Homebrew):
 ```bash
 brew install id3v2 ffmpeg
 ```
+
+Für Windows:
+- Installiere **ffmpeg**: Lade es von [FFmpeg.org](https://ffmpeg.org/download.html) herunter.
+- Installiere **id3v2** über einen Paketmanager wie `choco` (Chocolatey) oder manuell via eine Windows-Binärdatei.
 
 ---
 
 ## Einrichtung
 
-1. Repository klonen:
+1. Klone das Repository:
    ```bash
    git clone https://github.com/your-username/music-sorter.git
    cd music-sorter
    ```
 
-2. Skripte ausführbar machen:
+2. Mache die Skripte ausführbar:
    ```bash
-   chmod +x create_genre_folders.sh sort_music.sh
+   chmod +x create_genre_folders sort_music
    ```
 
-3. Skript zur Ordnererstellung ausführen, um die benötigten Verzeichnisse einzurichten:
+3. Führe das Skript aus, um die Genre-Ordner zu erstellen:
    ```bash
-   ./create_genre_folders.sh
+   ./create_genre_folders
    ```
 
-4. Neue Titel in den `XtoScan`-Ordner zur Verarbeitung legen.
+4. Lege neue Tracks in den `XtoScan`-Ordner zum Verarbeiten.
 
-5. Musiksortierskript ausführen:
+5. Führe das Musik-Sortierskript aus:
    ```bash
-   ./sort_music.sh
+   ./sort_music
    ```
 
 ---
@@ -75,86 +80,87 @@ brew install id3v2 ffmpeg
 
 Die folgenden Ordner werden erstellt:
 
-| Ordnername        | Beschreibung                              |
-|-------------------|-------------------------------------------|
-| `Acapella`        | A capella oder reine Vokalstücke          |
-| `Ambient`         | Ambient-Musik                            |
-| `Anjuna_Beats`    | Titel im Zusammenhang mit Anjuna Beats    |
-| `Breakbeat`       | Breakbeat und verwandte Genres            |
-| `Dance`           | Dance-Musik                              |
-| `Deep_House`      | Deep-House-Genres                        |
-| `Disco`           | Disco und Nu-Disco-Titel                 |
-| `Drum_Bass`       | Drum & Bass und Jungle-Genres            |
-| `Dubstep`         | Dubstep-Genres                           |
-| `Hardstyle`       | Hardstyle und ähnliche Genres            |
-| `House`           | House und verwandte Genres               |
-| `Industrial`      | Industrial- und EBM-Musik                |
-| `Pop`             | Pop, Jazz, Rock und Alternative-Titel    |
-| `Progressive_House`| Progressive House, Big Room, usw.         |
-| `Tech_House`      | Tech-House-Genres                        |
-| `Techno`          | Verschiedene Techno-Genres               |
-| `Trance`          | Trance und verwandte Genres              |
-| `Uncategorized`   | Für Dateien mit unbekannten oder fehlenden Genres |
-| `XtoScan`         | Ordner für neue Dateien zur Verarbeitung |
+| Ordnername         | Beschreibung                                  |
+|--------------------|----------------------------------------------|
+| `Acapella`         | A capella oder nur Gesangs-Tracks             |
+| `Ambient`          | Ambient-Musik                                |
+| `Anjuna_Beats`     | Tracks, die mit Anjuna Beats zu tun haben     |
+| `Breakbeat`        | Breakbeat und verwandte Genres                |
+| `Dance`            | Tanzmusik                                    |
+| `Deep_House`       | Deep House Genres                            |
+| `Disco`            | Disco und Nu-Disco-Tracks                    |
+| `Drum_Bass`        | Drum & Bass und Jungle Genres                |
+| `Dubstep`          | Dubstep Genres                               |
+| `Hardstyle`        | Hardstyle und verwandte Genres               |
+| `House`            | House und verwandte Genres                   |
+| `Industrial`       | Industrielle und EBM-Musik                   |
+| `Pop`              | Pop, Jazz, Rock und Alternative Tracks        |
+| `Progressive_House`| Progressive House, Big Room, etc.             |
+| `Tech_House`       | Tech House Genres                            |
+| `Techno`           | Verschiedene Techno Genres                   |
+| `Trance`           | Trance und verwandte Genres                  |
+| `Uncategorized`    | Für Dateien mit unbekannten oder fehlenden Genres |
+| `XtoScan`          | Ordner für neue Dateien, die verarbeitet werden sollen |
 
 ---
 
-## Verwendung
+## Nutzung
 
-### 1. Ordner erstellen oder wählen
-Zuerst musst du den Ordner auswählen, in dem du die Musikdateien organisieren möchtest. Du kannst entweder einen bestehenden Ordner auswählen oder einen neuen Ordner erstellen.
+### 1. Ordner erstellen oder auswählen
+Wähle zuerst den Ordner aus, in dem du deine Musikdateien organisieren möchtest. Du kannst entweder einen bestehenden Ordner auswählen oder einen neuen erstellen.
 
-### 2. Im Terminal `cd` Ordnerwahl oder per Drag&Drop reinziehen
-Navigiere im Terminal zu deinem Ordner, indem du den Befehl `cd` (change directory) verwendest. Alternativ kannst du den Ordner auch einfach per **Drag&Drop** in das Terminal ziehen, um den Pfad zu übernehmen.
+### 2. Benutze den `cd` Befehl im Terminal oder ziehe den Ordner hinein
+Wechsle in deinen Ordner im Terminal mit dem `cd` Befehl. Alternativ kannst du den Ordner auch ins Terminal ziehen, um den Pfad automatisch auszufüllen.
 
 ```bash
-cd /Pfad/zum/Ordner
+cd /pfad/zum/ordner
 ```
 
-### 3. Im Terminal das `create_genre_folders` Skript im Ordner ausführen
-Nun, da du im richtigen Ordner bist, führe das `create_genre_folders.sh`-Skript aus, um alle notwendigen Genre-Ordner zu erstellen.
+### 3. Führe das Skript `create_genre_folders` im Ordner aus
+Jetzt, da du im richtigen Ordner bist, führe das Skript `create_genre_folders` aus, um alle benötigten Genre-Ordner zu erstellen.
 
 ```bash
-./create_genre_folders.sh
+./create_genre_folders
 ```
 
 <p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/terminal_setup.png?raw=true" alt="Terminal Setup"> </p> 
-<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders_created.png?raw=true" alt="Ordner"> </p>
-<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders.png?raw=true" alt="Ordnererstellung"> </p>
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders_created.png?raw=true" alt="Ordner erstellt"> </p>
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/folders.png?raw=true" alt="Ordner erstellt"> </p>
 
-**Achtung:** Schließe das Terminal nicht, wenn das Skript ausgeführt wurde. Das Terminal muss weiterhin geöffnet bleiben, um die weiteren Schritte auszuführen.
+**Hinweis:** Lasse das Terminal offen, nachdem du das Skript ausgeführt hast. Das Terminal muss für die weiteren Schritte offen bleiben.
 
-### 4. Terminal NICHT schließen
-Wenn du das Terminal schließt, musst du den Ordner erneut mit dem `cd`-Befehl auswählen, um weiterzuarbeiten. Zum Beispiel:
-
-```bash
-cd /Pfad/zum/Ordner
-```
-
-### 5. In `XtoScan` Ordner zu sortierende Lieder einfügen
-Füge nun alle Musikdateien, die du sortieren möchtest, in den Ordner `XtoScan` ein. Dieser Ordner wird vom Skript verwendet, um die Musikdateien zu scannen und zu sortieren.
-
-### 6. Im Terminal das `sort_music.sh` Skript im Ordner ausführen
-Führe das `sort_music.sh`-Skript aus, um die Lieder basierend auf ihren Genre-Tags in die entsprechenden Ordner zu verschieben.
+### 4. Schließe das Terminal nicht
+Wenn du das Terminal schließt, musst du erneut mit dem `cd` Befehl zum Ordner navigieren, um weiterzuarbeiten.
 
 ```bash
-./sort_music.sh
+cd /pfad/zum/ordner
 ```
 
-<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/sorted.png?raw=true" alt="Sortiere Tracks"> </p> 
+### 5. Füge Dateien in den `XtoScan` Ordner ein
+Lege alle Musikdateien, die du sortieren möchtest, in den `XtoScan` Ordner. Dieser Ordner wird vom Skript verwendet, um Musikdateien zu scannen und zu sortieren.
+
+### 6. Führe das Skript `sort_music` aus
+Führe das Skript `sort_music` aus, um die Dateien basierend auf ihren Genre-Tags zu verschieben.
+
+```bash
+./sort_music
+```
+
+<p align="center"> <img src="https://github.com/Zuckerst4nge/music-sorter/blob/main/images/sorted.png?raw=true" alt="Sortierte Tracks"> </p> 
 
 ### 7. Fertig
-Nachdem das Skript ausgeführt wurde, sollten alle Lieder im richtigen Genre-Ordner sein. Wenn alles richtig funktioniert hat, ist der Vorgang abgeschlossen.
+Sobald das Skript ausgeführt wurde, sollten alle deine Tracks im entsprechenden Genre-Ordner sein. Wenn alles korrekt funktioniert, ist der Vorgang abgeschlossen.
 
 ---
 
 ## Fehlerbehebung
 
-#### Sollten im `Uncategorized` Ordner Tracks liegen:
-Falls Musikdateien im `Uncategorized` Ordner landen, bedeutet dies, dass das Genre des Tracks nicht erkannt werden konnte. In diesem Fall musst du das Skript `sort_music.sh` anpassen, um das Genre korrekt zuzuordnen.
+### Dateien im `Uncategorized` Ordner
+Wenn Dateien im `Uncategorized` Ordner landen, bedeutet das, dass das Genre der Datei nicht identifiziert werden konnte. Du musst möglicherweise die Skripte anpassen, um diese Dateien richtig zu kategorisieren.
 
-1. Öffne das Skript `sort_music.sh` im Editor.
-2. Suche nach der Stelle, an der Genres zugeordnet werden, und passe das Skript an. Zum Beispiel:
+#### Für **Linux/macOS (Bash)**:
+1. Öffne das Skript `sort_music` in einem Texteditor.
+2. Suche den Abschnitt, in dem Genres zugewiesen werden, und passe ihn nach Bedarf an. Zum Beispiel:
 
    Ändere:
    ```bash
@@ -163,7 +169,7 @@ Falls Musikdateien im `Uncategorized` Ordner landen, bedeutet dies, dass das Gen
        ;;
    ```
 
-   In:
+   Zu:
    ```bash
    "Indie Dance"|"Alternative Dance"|"Dance"|"Dance & House")
        echo "Dance"
@@ -173,21 +179,52 @@ Falls Musikdateien im `Uncategorized` Ordner landen, bedeutet dies, dass das Gen
 3. Speichere das Skript und führe es erneut aus:
 
    ```bash
-   ./sort_music.sh
+   ./sort_music
    ```
 
-Jetzt sollten auch die vorher unklassifizierten Dateien korrekt einsortiert werden.
+#### Für **Windows (PowerShell)**:
+1. Öffne das Skript `sort_music.ps1` in einem Texteditor.
+2. Suche den Teil des Skripts, der Genres den Ordnern zuweist, und passe es nach Bedarf an. Zum Beispiel:
+
+   Ändere:
+   ```powershell
+   switch ($genre.ToLower()) {
+       "indie dance" { return "Dance" }
+       "alternative dance" { return "Dance" }
+       "dance" { return "Dance" }
+   }
+   ```
+
+   Zu:
+   ```powershell
+   switch ($genre.ToLower()) {
+       "indie dance" { return "Dance" }
+       "alternative dance" { return "Dance" }
+       "dance" { return "Dance" }
+       "dance & house" { return "Dance" }
+   }
+   ```
+
+3. Speichere das Skript und führe es erneut aus:
+
+   ```powershell
+   .\sort_music.ps1
+   ```
+
+Jetzt sollten die zuvor nicht kategorisierten Dateien korrekt sortiert werden.
 
 ---
 
 ## Mitwirken
-Beiträge sind willkommen! Bitte reiche einen Pull-Request ein oder eröffne ein Issue, um Verbesserungen vorzuschlagen oder Fehler zu melden.
+Beiträge sind willkommen! Bitte stelle einen Pull-Request oder öffne ein Issue, um Verbesserungen vorzuschlagen oder Fehler zu melden.
 
 ---
 
 ## Lizenz
-Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe die Datei `LICENSE` für Details.
+Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe die `LICENSE`-Datei für Details.
 
 ---
 
 Viel Spaß beim Organisieren deiner Musik! 🎵
+
+--- 
